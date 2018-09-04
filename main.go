@@ -120,6 +120,7 @@ func getPositiveInt() (res int) {
 		return
 	}
 }
+
 func flushStdin() {
 	stdin := bufio.NewReader(os.Stdin)
 	stdin.ReadString('\n')
