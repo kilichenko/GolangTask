@@ -40,21 +40,21 @@ func main() {
 		negativeInterestRaisePeriod int     = 2     //Value in months
 	)
 
-	fmt.Println("1. Input all the values manually.\n2. Calculate with default values.\n")
+	fmt.Println("1. Input all the values manually.\n2. Calculate with default values.")
 
-	if getFloat() == 1 {
-		fmt.Println("How much can a man save per month?\n")
-		monthlySavings = getFloat()
-		fmt.Println("What is the initial old car price?\n")
-		oldCarPrice = getFloat()
-		fmt.Println("What is the initial new car price?\n")
-		newCarPrice = getFloat()
-		fmt.Println("How much value do cars lose every month? In other words, what is the negative interest? " +
-			"Value should be between 0 and 1.\n")
+	if getPositiveFloat() == 1 {
+		fmt.Println("\nHow much can a man save per month?")
+		monthlySavings = getPositiveFloat()
+		fmt.Println("\nWhat is the initial old car price?")
+		oldCarPrice = getPositiveFloat()
+		fmt.Println("\nWhat is the initial new car price?")
+		newCarPrice = getPositiveFloat()
+		fmt.Println("\nHow much value do cars lose every month? In other words, what is the negative interest? " +
+			"Value should be between 0 and 1.")
 		negativeInterestRaise = getInterest()
-		fmt.Println("How often a negative inerest rate inreses? Value in whole months.\n")
+		fmt.Println("\nHow often a negative inerest rate inreses? Value in whole months.")
 		negativeInterestRaisePeriod = getPositiveInt()
-		fmt.Println("By how much a negative inerest rate inreses? Value should be between 0 and 1.\n")
+		fmt.Println("\nBy how much a negative inerest rate inreses? Value should be between 0 and 1.")
 		negativeInterestRaise = getInterest()
 	}
 
@@ -89,7 +89,7 @@ func Calculations(savings, oldCarPrice, newCarPrice, monthlySavings,
 
 //returns a value between 0 and 1
 func getInterest() (res float64) {
-	res = getFloat()
+	res = getPositiveFloat()
 	if res <= 0 || res >= 1 {
 		fmt.Println("Please, enter a number between 0 and 1, both included")
 		return getInterest()
@@ -97,26 +97,30 @@ func getInterest() (res float64) {
 	return
 }
 
-func getFloat() (res float64) {
+func getPositiveFloat() (res float64) {
 	_, err := fmt.Scanf("%f", &res)
-
-	if err != nil {
-		fmt.Println("Please, enter a number")
+	if err != nil{
 		flushStdin()
-		return getFloat()
-	} else {
+		fmt.Println("Please, enter a number")
+		return getPositiveFloat()
+	} else if res < 0 {
+		fmt.Println("Please, enter a positive number")
+		return getPositiveFloat()
+	} else{
 		return
 	}
 }
 
 func getPositiveInt() (res int) {
 	_, err := fmt.Scanf("%d", &res)
-
-	if err != nil || res < 0 {
-		fmt.Println("Please, enter a positive whole number:")
+	if err != nil{
 		flushStdin()
+		fmt.Println("Please, enter a whole number")
 		return getPositiveInt()
-	} else {
+	} else if res < 0 {
+		fmt.Println("Please, enter a positive whole number")
+		return getPositiveInt()
+	} else{
 		return
 	}
 }
